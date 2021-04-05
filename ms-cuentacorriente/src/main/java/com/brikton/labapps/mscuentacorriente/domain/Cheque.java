@@ -1,4 +1,4 @@
-package com.brikton.labapps.mspagos.domain;
+package com.brikton.labapps.mscuentacorriente.domain;
 
 import java.time.Instant;
 
