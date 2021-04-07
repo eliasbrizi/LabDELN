@@ -1,4 +1,4 @@
-package com.brikton.labapps.mspagos;
+package com.brikton.labapps.mscuentacorriente;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

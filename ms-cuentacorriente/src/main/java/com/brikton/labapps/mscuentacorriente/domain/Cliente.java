@@ -1,7 +1,5 @@
 package com.brikton.labapps.mscuentacorriente.domain;
 
-import java.util.List;
-
 public class Cliente {
 	
     private Integer id;

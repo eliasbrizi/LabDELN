@@ -1,4 +1,4 @@
-package com.brikton.labapps.mspagos.config;
+package com.brikton.labapps.mscuentacorriente.config;
 
 
 import org.springframework.context.annotation.Bean;
