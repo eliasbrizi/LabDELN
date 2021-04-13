@@ -30,8 +30,8 @@ import io.swagger.annotations.ApiResponses;
 @Api(value = "ClienteRest", description = "Permite gestionar los clientes de la empresa")
 public class ClienteRest {
     
-    private static final List<Cliente> listaClientes = new ArrayList<>();
-    private static Integer ID_GEN = 1;
+//    private static final List<Cliente> listaClientes = new ArrayList<>();
+//    private static Integer ID_GEN = 1;
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Busca un cliente por id")
@@ -61,11 +61,20 @@ public class ClienteRest {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> crear(@RequestBody Cliente nuevo){
-    	System.out.println(" crear cliente "+nuevo);
-        nuevo.setId(ID_GEN++);
-        listaClientes.add(nuevo);
-        return ResponseEntity.ok(nuevo);
+    public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente clienteNuevo){
+        clienteNuevo.setId(ID_GEN++);
+        /*
+        Valido que tenga usuario y que tenga obras asociadas
+        */
+        if ((clienteNuevo.getUser() != null) &&
+            (clienteNuevo.getObras() != null) &&
+            (!clienteNuevo.getObras().isEmpty())) {
+            ClienteService.crearCliente(clienteNuevo);
+            //listaClientes.add(clienteNuevo);
+            return ResponseEntity.ok(clienteNuevo);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping(path = "/{id}")
