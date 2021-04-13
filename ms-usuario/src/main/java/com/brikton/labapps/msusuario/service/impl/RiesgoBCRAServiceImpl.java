@@ -1,5 +1,6 @@
 package com.brikton.labapps.msusuario.service.impl;
 
+@Service
 public class RiesgoBCRAServiceImpl implements RiesgoBCRAService {
 
     //TODO aca hay que hacer algo?? o sarasa?
