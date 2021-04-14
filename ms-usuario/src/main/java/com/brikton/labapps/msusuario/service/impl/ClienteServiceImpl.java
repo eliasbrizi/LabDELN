@@ -1,14 +1,21 @@
 package com.brikton.labapps.msusuario.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 import com.brikton.labapps.msusuario.domain.Cliente;
+import com.brikton.labapps.msusuario.service.ClienteService;
+import com.brikton.labapps.msusuario.service.RiesgoBCRAService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
     
     //TODO creo que hay que borrar todo esto
-    private static final List<Cliente> listaClientes = new ArrayList<>();
+    private static final List<Cliente> listaClientes = new ArrayList<Cliente>();
     private static Integer ID_GEN = 1;
 
     @Autowired
@@ -20,7 +27,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente guardarCliente(Cliente c) throws RecursoNoEncontradoException,RiesgoException {
         if (!(c.getId()!=null && c.getId()>0)) {
-            if (riesgoBCRAService.getRiesgo() > 2) 
+            if (riesgoBCRAService.getRiesgo(c.getCuit()) > 2) 
                 throw new RiesgoException("Riesgo Crediticio > 2");
             c.setId(ID_GEN++);
             listaClientes.add(c);
@@ -60,7 +67,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Optional<Cliente> buscarClientePorId(Integer id) throws RecursoNoEncontradoException {
         
-        OptionalCliente clienteOpt = listaClientes.stram()
+        Optional<Cliente> clienteOpt = listaClientes.stream()
             .filter( c -> c.getId().equals(id) ).findFirst();
 
         if (clienteOpt.isEmpty()) throw new RecursoNoEncontradoException("Cliente",id);

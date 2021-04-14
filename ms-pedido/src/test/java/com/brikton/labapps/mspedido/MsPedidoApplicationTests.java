@@ -1,10 +1,10 @@
-package com.brikton.labapps.msstock;
+package com.brikton.labapps.mspedido;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MsStockApplicationTests {
+class MsPedidoApplicationTestss {
 
 	@Test
 	void contextLoads() {

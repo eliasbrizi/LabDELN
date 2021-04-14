@@ -8,7 +8,10 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import com.brikton.labapps.msusuario.domain.Cliente;
+import com.brikton.labapps.msusuario.service.ClienteService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,14 +38,16 @@ public class ClienteRest {
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Busca un cliente por id")
-    public ResponseEntity<Cliente> clientePorId(@PathVariable Integer id){
+    public ResponseEntity<?> clientePorId(@PathVariable Integer id){
+        
         Optional<Cliente> c = null;
+        
         try{
             c = this.clienteService.buscarClientePorId(id);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return ResponseEntity.ok(c);
+        return ResponseEntity.ok(c.get());
     }
 
     @GetMapping

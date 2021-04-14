@@ -1,4 +1,4 @@
-package com.brikton.labapps.msstock.config;
+package com.brikton.labapps.mspedido.config;
 
 
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ public class SpringFoxConfig {
     public Docket api() { 
         return new Docket(DocumentationType.SWAGGER_2)  
           .select()                                  
-          .apis(RequestHandlerSelectors.basePackage("brikton.labapps.msstock.rest"))              
+          .apis(RequestHandlerSelectors.basePackage("brikton.labapps.mspedido.rest"))              
           .paths(PathSelectors.any())                          
           .build();                                           
     }

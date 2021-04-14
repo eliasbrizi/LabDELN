@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.brikton.labapps</groupId>
-	<artifactId>ms-stock</artifactId>
+	<artifactId>ms-pedido</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms-stock</name>
-	<description>Modulo de stocks - TP Laboratorio</description>
+	<name>ms-pedido</name>
+	<description>Modulo de pedidos - TP Laboratorio</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
