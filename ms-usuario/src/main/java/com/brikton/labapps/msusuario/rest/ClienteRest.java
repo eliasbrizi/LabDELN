@@ -30,23 +30,24 @@ import io.swagger.annotations.ApiResponses;
 @Api(value = "ClienteRest", description = "Permite gestionar los clientes de la empresa")
 public class ClienteRest {
     
-//    private static final List<Cliente> listaClientes = new ArrayList<>();
-//    private static Integer ID_GEN = 1;
+    @Autowired
+    ClienteService clienteService;
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Busca un cliente por id")
     public ResponseEntity<Cliente> clientePorId(@PathVariable Integer id){
-
-        Optional<Cliente> c =  listaClientes
-                .stream()
-                .filter(unCli -> unCli.getId().equals(id))
-                .findFirst();
-        return ResponseEntity.of(c);
+        Optional<Cliente> c = null;
+        try{
+            c = this.clienteService.buscarClientePorId(id);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+        return ResponseEntity.ok(c);
     }
 
     @GetMapping
     public ResponseEntity<List<Cliente>> todos(){
-        return ResponseEntity.ok(listaClientes);
+        return ResponseEntity.ok(this.clienteService.listarClientes());
     }
 
     @GetMapping( path = "/cuit")
@@ -61,20 +62,30 @@ public class ClienteRest {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente clienteNuevo){
-        clienteNuevo.setId(ID_GEN++);
+    public ResponseEntity<?> crearCliente(@RequestBody Cliente clienteNuevo){
+        
         /*
         Valido que tenga usuario y que tenga obras asociadas
         */
-        if ((clienteNuevo.getUser() != null) &&
-            (clienteNuevo.getObras() != null) &&
-            (!clienteNuevo.getObras().isEmpty())) {
-            ClienteService.crearCliente(clienteNuevo);
-            //listaClientes.add(clienteNuevo);
-            return ResponseEntity.ok(clienteNuevo);
-        } else {
-            return ResponseEntity.notFound().build();
+//        if ((clienteNuevo.getUser() != null) &&
+//            (clienteNuevo.getObras() != null) &&
+//            (!clienteNuevo.getObras().isEmpty())) {
+//            ClienteService.crearCliente(clienteNuevo);
+//            //listaClientes.add(clienteNuevo);
+//            return ResponseEntity.ok(clienteNuevo);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+    //TODO
+        Cliente creado = null;
+        try {
+            creado = this.clienteService.guardarCliente(nuevo);
+        } catch (RecursoNoEncontradoException e1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
+        } catch (RiesgoException e2) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e2.getMessage();
         }
+        return ResponseEntity.ok(creado);
     }
 
     @PutMapping(path = "/{id}")
@@ -85,32 +96,27 @@ public class ClienteRest {
         @ApiResponse(code = 403, message = "Prohibido"),
         @ApiResponse(code = 404, message = "El ID no existe")
     })
-    public ResponseEntity<Cliente> actualizar(@RequestBody Cliente nuevo,  @PathVariable Integer id){
-        OptionalInt indexOpt =   IntStream.range(0, listaClientes.size())
-        .filter(i -> listaClientes.get(i).getId().equals(id))
-        .findFirst();
-
-        if(indexOpt.isPresent()){
-            listaClientes.set(indexOpt.getAsInt(), nuevo);
-            return ResponseEntity.ok(nuevo);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<?> actualizar(@RequestBody Cliente nuevo,  @PathVariable Integer id){
+        Cliente actualizado = null;
+        try {
+            actualizado = this.clienteService.guardarCliente(nuevo);
+        } catch (RecursoNoEncontradoException e1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
+        } catch (RiesgoException e2) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e2.getMessage());
+        } 
+        return ResponseEntity.ok(actualizado);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Cliente> borrar(@PathVariable Integer id){
-        OptionalInt indexOpt =   IntStream.range(0, listaClientes.size())
-        .filter(i -> listaClientes.get(i).getId().equals(id))
-        .findFirst();
-
-        if(indexOpt.isPresent()){
-            listaClientes.remove(indexOpt.getAsInt());
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<?> borrar(@PathVariable Integer id){
+        try {
+            this.clienteService.bajaCliente(id);
+        } catch (RecursoNoEncontradoException e1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
+        } catch (OperacionNoPermitidaException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } 
+        return ResponseEntity.ok().build();
     }
-
-
 }
