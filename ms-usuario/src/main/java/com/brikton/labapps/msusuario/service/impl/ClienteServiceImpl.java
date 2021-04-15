@@ -74,4 +74,16 @@ public class ClienteServiceImpl implements ClienteService {
         
         return clienteOpt;
     }
+
+    @Override
+    public Optional<Cliente> buscarClientePorId(String id) throws RecursoNoEncontradoException {
+        //TODO implementar  
+        return null;
+    }
+    
+    @Override
+    public Optional<Cliente> buscarClientePorRazonSocial(String razonSocial) throws RecursoNoEncontradoException {
+        //TODO implementar  
+        return null;
+    }
 }

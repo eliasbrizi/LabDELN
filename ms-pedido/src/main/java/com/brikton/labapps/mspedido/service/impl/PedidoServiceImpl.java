@@ -1,3 +1,5 @@
+package com.brikton.labapps.msstock.service.impl;
+
 @Service
 public class PedidoServiceImpl implements PedidoService {
 	

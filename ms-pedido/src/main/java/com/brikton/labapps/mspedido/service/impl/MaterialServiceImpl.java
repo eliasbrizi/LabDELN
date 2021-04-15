@@ -1,3 +1,4 @@
+package com.brikton.labapps.msstock.service.impl;
 
 @Service
 public class MaterialServiceImpl implements MaterialService {

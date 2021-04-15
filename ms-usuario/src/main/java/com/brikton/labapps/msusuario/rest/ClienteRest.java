@@ -56,14 +56,27 @@ public class ClienteRest {
     }
 
     @GetMapping( path = "/cuit")
-    public ResponseEntity<Cliente> clientePorCuit(@RequestParam String cuit){
-        Optional<Cliente> c = listaClientes.stream().filter(i -> i.getCuit().equals(cuit)).findFirst();
-        return ResponseEntity.of(c);
+    public ResponseEntity<?> clientePorCuit(@RequestParam String cuit){
+                
+        Optional<Cliente> c = null;
+        
+        try{
+            c = this.clienteService.buscarClientePorCuit(cuit);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+        return ResponseEntity.ok(c.get());
     }
     @GetMapping( path = "/razonSocial")
-    public ResponseEntity<Cliente> clientePorRazonSocial(@RequestParam( required = false ) String razonSocial){
-        Optional<Cliente> c = listaClientes.stream().filter(i -> i.getRazonSocial().equals(razonSocial)).findFirst();
-        return ResponseEntity.of(c);    
+    public ResponseEntity<?> clientePorRazonSocial(@RequestParam( required = false ) String razonSocial){
+        Optional<Cliente> c = null;
+        
+        try{
+            c = this.clienteService.buscarClientePorRazonSocial(razonSocial);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+        return ResponseEntity.ok(c.get()); 
     }
 
     @PostMapping
