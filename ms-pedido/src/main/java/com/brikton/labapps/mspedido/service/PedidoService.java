@@ -1,6 +1,9 @@
-package com.brikton.labapps.msstock.service;
+package com.brikton.labapps.mspedido.service;
+
+import com.brikton.labapps.mspedido.domain.Pedido;
+import com.brikton.labapps.mspedido.exception.RiesgoException;
 
 public interface PedidoService {
 
-	public Pedido crearPedido(Pedido p);
+	public Pedido crearPedido(Pedido p) throws RiesgoException;
 }

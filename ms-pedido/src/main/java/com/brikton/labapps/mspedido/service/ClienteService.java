@@ -1,4 +1,6 @@
-package com.brikton.labapps.msstock.service;
+package com.brikton.labapps.mspedido.service;
+
+import com.brikton.labapps.mspedido.domain.Obra;
 
 public interface ClienteService {
 

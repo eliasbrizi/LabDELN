@@ -25,7 +25,7 @@ public class DetallePedido {
 	public void setMaterial(Material material) {
 		this.material = material;
 	}
-	
-	
-	
+	public Double getPrecio(){
+		return material.getPrecio() * cantidad;
+	}	
 }

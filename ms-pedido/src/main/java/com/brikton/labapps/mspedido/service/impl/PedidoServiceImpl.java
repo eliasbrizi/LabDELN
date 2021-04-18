@@ -1,4 +1,17 @@
-package com.brikton.labapps.msstock.service.impl;
+package com.brikton.labapps.mspedido.service.impl;
+
+import com.brikton.labapps.mspedido.domain.Obra;
+import com.brikton.labapps.mspedido.domain.Pedido;
+import com.brikton.labapps.mspedido.domain.EstadoPedido;
+import com.brikton.labapps.mspedido.domain.Material;
+import com.brikton.labapps.mspedido.exception.RiesgoException;
+import com.brikton.labapps.mspedido.repository.PedidoRepository;
+import com.brikton.labapps.mspedido.service.ClienteService;
+import com.brikton.labapps.mspedido.service.MaterialService;
+import com.brikton.labapps.mspedido.service.PedidoService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PedidoServiceImpl implements PedidoService {
@@ -14,11 +27,11 @@ public class PedidoServiceImpl implements PedidoService {
 
 	
 	@Override
-	public Pedido crearPedido(Pedido p) {
+	public Pedido crearPedido(Pedido p) throws RiesgoException {
 		System.out.println("HOLA PEDIDO "+p);
 		boolean hayStock = p.getDetalle()
 		.stream()
-		.allMatch(dp -> verificarStock(dp.getProducto(),dp.getCantidad()));
+		.allMatch(dp -> verificarStock(dp.getMaterial(),dp.getCantidad()));
 		
 		Double totalOrden = p.getDetalle()
 				.stream()
@@ -34,7 +47,7 @@ public class PedidoServiceImpl implements PedidoService {
 				if(!generaDeuda || (generaDeuda && this.esDeBajoRiesgo(p.getObra(),nuevoSaldo) ))  {
 					p.setEstado(new EstadoPedido(1,"ACEPTADO"));
 				} else {
-					throw new RuntimeException("No tiene aprobacion crediticia");
+					throw new RiesgoException("riesgo");
 				}
 		} else {
 			p.setEstado(new EstadoPedido(2,"PENDIENTE"));
@@ -43,8 +56,8 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 	
 	
-	boolean verificarStock(Producto p,Integer cantidad) {
-		return materialSrv.stockDisponible(p)>=cantidad;
+	boolean verificarStock(Material m,Integer cantidad) {
+		return materialSrv.stockDisponible(m)>=cantidad;
 	}
 
 	boolean esDeBajoRiesgo(Obra o,Double saldoNuevo) {
