@@ -1,13 +1,12 @@
 package com.brikton.labapps.msusuario.rest;
 
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
-import java.util.stream.IntStream;
 
 import com.brikton.labapps.msusuario.domain.Cliente;
+import com.brikton.labapps.msusuario.exception.OperacionNoPermitidaException;
+import com.brikton.labapps.msusuario.exception.RecursoNoEncontradoException;
+import com.brikton.labapps.msusuario.exception.RiesgoException;
 import com.brikton.labapps.msusuario.service.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,11 +96,11 @@ public class ClienteRest {
     //TODO
         Cliente creado = null;
         try {
-            creado = this.clienteService.guardarCliente(nuevo);
+            creado = this.clienteService.guardarCliente(clienteNuevo);
         } catch (RecursoNoEncontradoException e1) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
         } catch (RiesgoException e2) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e2.getMessage();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e2.getMessage());
         }
         return ResponseEntity.ok(creado);
     }

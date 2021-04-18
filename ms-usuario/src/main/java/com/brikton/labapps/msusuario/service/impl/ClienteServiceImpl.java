@@ -2,14 +2,18 @@ package com.brikton.labapps.msusuario.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import com.brikton.labapps.msusuario.domain.Cliente;
 import com.brikton.labapps.msusuario.service.ClienteService;
+import com.brikton.labapps.msusuario.service.PedidoService;
 import com.brikton.labapps.msusuario.service.RiesgoBCRAService;
+import com.brikton.labapps.msusuario.exception.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -74,16 +78,17 @@ public class ClienteServiceImpl implements ClienteService {
         
         return clienteOpt;
     }
-
-    @Override
-    public Optional<Cliente> buscarClientePorId(String id) throws RecursoNoEncontradoException {
-        //TODO implementar  
-        return null;
-    }
     
     @Override
     public Optional<Cliente> buscarClientePorRazonSocial(String razonSocial) throws RecursoNoEncontradoException {
         //TODO implementar  
         return null;
     }
+
+    @Override
+    public Optional<Cliente> buscarClientePorCuit(String cuit) throws RecursoNoEncontradoException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

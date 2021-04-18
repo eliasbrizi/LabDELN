@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.brikton.labapps.msusuario.domain.Cliente;
+import com.brikton.labapps.msusuario.exception.*;
 
 public interface ClienteService {
 
