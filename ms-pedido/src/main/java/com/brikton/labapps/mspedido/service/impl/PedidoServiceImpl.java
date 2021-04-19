@@ -28,7 +28,6 @@ public class PedidoServiceImpl implements PedidoService {
 	
 	@Override
 	public Pedido crearPedido(Pedido p) throws RiesgoException {
-		System.out.println("HOLA PEDIDO "+p);
 		boolean hayStock = p.getDetalle()
 		.stream()
 		.allMatch(dp -> verificarStock(dp.getMaterial(),dp.getCantidad()));

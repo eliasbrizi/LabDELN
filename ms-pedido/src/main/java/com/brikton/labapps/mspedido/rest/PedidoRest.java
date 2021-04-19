@@ -3,6 +3,7 @@ package com.brikton.labapps.mspedido.rest;
 import com.brikton.labapps.mspedido.domain.Pedido;
 import com.brikton.labapps.mspedido.exception.RiesgoException;
 import com.brikton.labapps.mspedido.service.PedidoService;
+import com.brikton.labapps.msproductos.domain.DetallePedido;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/pedido")
-@Api(value = "PediroRest", description = "Permite gestionar los pedidos de la empresa")
+@Api(value = "PedidoRest", description = "Permite gestionar los pedidos de la empresa")
 public class PedidoRest {
     
     @Autowired
@@ -34,9 +35,8 @@ public class PedidoRest {
         Valido que obra, detalle y el detalle tenga productos y cantidad
         */
 
-    //TODO
         Pedido creado = null;
-        if ((nuevoPedido.getObra() != null)) {
+        if (validarPedido(nuevoPedido)) {
             try {
                 creado = this.pedidoService.crearPedido(nuevoPedido);
             } catch (RiesgoException e2) {
@@ -48,4 +48,17 @@ public class PedidoRest {
         }
     }
 
+    private Boolean validarPedido(Pedido p) {
+        Boolean valido = true;
+        if (p.getDetalle() != null) {
+            for(DetallePedido d : p.getDetalle()) {
+                if ((d.getMaterial() == null) || 
+                    (d.getCantidad() == null))
+                    valido = false;
+            }
+        } else {
+            valido = false;
+        }
+        return valido;
+    }
 }
