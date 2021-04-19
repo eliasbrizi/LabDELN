@@ -51,6 +51,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void bajaCliente(Integer id) throws RecursoNoEncontradoException {
+        //TODO la parte de pedidos
         if (clienteRepository.existsById(id)) {
            clienteRepository.deleteById(id);;
         } else {
@@ -62,7 +63,7 @@ public class ClienteServiceImpl implements ClienteService {
     public List<Cliente> listarClientes() {
         Iterable<Cliente> clientes = clienteRepository.findAll();
         ArrayList<Cliente> listaClientes = new ArrayList<>();
-        clientes.forEach( c -> listaClientes.add(c));
+        clientes.forEach( c -> if ( c.getFechaBaja() == null ) listaClientes.add(c));
         return listaClientes;
     }
 

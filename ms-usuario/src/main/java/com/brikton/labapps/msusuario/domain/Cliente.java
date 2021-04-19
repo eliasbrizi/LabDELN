@@ -10,6 +10,7 @@ public class Cliente {
     private String mail;
     private Double maxCuentaCorriente;
     private Boolean habilitadoOnline;
+    private Instant fechaBaja;
 
     private Usuario user;
     private ArrayList<Obra> obras;
@@ -90,5 +91,11 @@ public class Cliente {
         this.obras = obras;
     }
 
-    
+    public void setFechaBaja(Instant fechaBaja){
+        this.fechaBaja = fechaBaja;
+    }
+
+    public Instant getFechaBaja(){
+        return this.fechaBaja;
+    }
 }
