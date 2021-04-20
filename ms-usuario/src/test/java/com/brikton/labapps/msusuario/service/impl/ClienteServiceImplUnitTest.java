@@ -2,8 +2,14 @@ package com.brikton.labapps.msusuario.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.brikton.labapps.msusuario.domain.Cliente;
 import com.brikton.labapps.msusuario.domain.TipoUsuario;
@@ -101,19 +107,50 @@ public class ClienteServiceImplUnitTest {
         }
     }
 
-    // @Test
-    // void testGuardarClienteConIdMayorACero(){
-    //     cliente.setId(3);
-    //     when(riesgoService.getRiesgo(any(String.class))).thenReturn(1);
-    //     when(clienteRepo.save(any(Cliente.class))).thenReturn(cliente);
-    //     try{
-    //         Cliente clienteResultado = clienteService.guardarCliente(cliente);
-    //         assertThat(clienteResultado.getId().equals(1));
+    @Test
+    void testBajaClienteConPedidosYExiste(){
+        fail("es instesteable");
+        when(pedidoService.tienePedidos(anyInt())).thenReturn(true);
+        // when(ClienteRepository)
 
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+    }
+
+    @Test
+    void testBajaClienteConPedidosYNoExiste(){
+        fail("Not yet implemented");
+        when(pedidoService.tienePedidos(anyInt())).thenReturn(true);
+
+
+    }
+
+    @Test
+    void testBajaClienteSinPedidosYExiste(){
+        fail("Not yet implemented");
+    }
+    @Test
+    void testBajaClienteSinPedidosYNoExiste(){
+        fail("Not yet implemented");
+    }
+
+    @Test
+    void testListarClientes(){
+        Cliente cliente1 = new Cliente(1, "razonSocial", null, null, null, null, usuario);
+        Cliente cliente2 = new Cliente(1, "razonSocial", null, null, null, null, usuario);
+        Cliente cliente3 = new Cliente(1, "razonSocial", null, null, null, null, usuario);
+        cliente3.setFechaBaja(LocalDate.now());
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        clientes.add(cliente1);
+        clientes.add(cliente2);
+        clientes.add(cliente3);
+        when(clienteRepo.findAll()).thenReturn(clientes);
+        List<Cliente> resultadoClientes = clienteService.listarClientes();
+        assertThat(resultadoClientes.size() == 2);
+    }
+
+    @Test
+    void testBuscarClientePorId(){
+        fail("Not yet implemented");
+    }
 
     @AfterEach
 	void tearDown() throws Exception {
