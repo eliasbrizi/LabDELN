@@ -1,5 +1,6 @@
 package com.brikton.labapps.msusuario.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,14 +20,14 @@ import org.springframework.stereotype.Service;
 public class ClienteServiceImpl implements ClienteService {
     
     //TODO creo que hay que borrar todo esto
-    //private static final List<Cliente> listaClientes = new ArrayList<Cliente>();
+
     private static Integer ID_GEN = 1;
 
     @Autowired
     RiesgoBCRAService riesgoBCRAService;
 
-    // @Autowired
-    // PedidoService pedidoService;
+    @Autowired
+    PedidoService pedidoService;
 
     @Autowired
     ClienteRepository clienteRepository;
@@ -51,11 +52,21 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void bajaCliente(Integer id) throws RecursoNoEncontradoException {
-        //TODO la parte de pedidos
-        if (clienteRepository.existsById(id)) {
-           clienteRepository.deleteById(id);;
+        //TODO : si el cliente alguna vez pidio, se le setea la fecha de baja
+
+        if (pedidoService.tienePedidos(id)) {
+            Optional<Cliente> cliente = clienteRepository.findById(id);
+            if (cliente.isEmpty()) {
+                throw new RecursoNoEncontradoException("Cliente",id);
+            } else {
+                cliente.get().setFechaBaja(LocalDate.now());
+            }
         } else {
-            throw new RecursoNoEncontradoException("Cliente",id);
+            if (clienteRepository.existsById(id)) {
+            clienteRepository.deleteById(id);;
+            } else {
+                throw new RecursoNoEncontradoException("Cliente",id);
+            }
         }
     }
 
@@ -63,7 +74,7 @@ public class ClienteServiceImpl implements ClienteService {
     public List<Cliente> listarClientes() {
         Iterable<Cliente> clientes = clienteRepository.findAll();
         ArrayList<Cliente> listaClientes = new ArrayList<>();
-        clientes.forEach( c -> if ( c.getFechaBaja() == null ) listaClientes.add(c));
+        clientes.forEach( c -> { if ( c.getFechaBaja() == null ) listaClientes.add(c); });
         return listaClientes;
     }
 
@@ -82,7 +93,10 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Optional<Cliente> buscarClientePorCuit(String cuit) throws RecursoNoEncontradoException {
         // TODO Auto-generated method stub
-        return null;
+        Iterable<Cliente> lista = clienteRepository.findAll();
+        Optional<Cliente> cliente = null;
+        for ( Cliente c : lista) if(c.getCuit().equals(cuit)) cliente = Optional.of(c);
+        return cliente;
     }
 
 }

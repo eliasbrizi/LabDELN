@@ -1,5 +1,6 @@
 package com.brikton.labapps.msusuario.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Cliente {
@@ -10,7 +11,7 @@ public class Cliente {
     private String mail;
     private Double maxCuentaCorriente;
     private Boolean habilitadoOnline;
-    private Instant fechaBaja;
+    private LocalDate fechaBaja;
 
     private Usuario user;
     private ArrayList<Obra> obras;
@@ -91,11 +92,11 @@ public class Cliente {
         this.obras = obras;
     }
 
-    public void setFechaBaja(Instant fechaBaja){
+    public void setFechaBaja(LocalDate fechaBaja){
         this.fechaBaja = fechaBaja;
     }
 
-    public Instant getFechaBaja(){
+    public LocalDate getFechaBaja(){
         return this.fechaBaja;
     }
 }

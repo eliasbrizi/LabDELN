@@ -3,7 +3,7 @@ package com.brikton.labapps.mspedido.rest;
 import com.brikton.labapps.mspedido.domain.Pedido;
 import com.brikton.labapps.mspedido.exception.RiesgoException;
 import com.brikton.labapps.mspedido.service.PedidoService;
-import com.brikton.labapps.msproductos.domain.DetallePedido;
+import com.brikton.labapps.mspedido.domain.DetallePedido;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
