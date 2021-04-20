@@ -55,7 +55,7 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 	
 	
-	boolean verificarStock(Material m,Integer cantidad) {
+	boolean verificarStock(Material m,Double cantidad) {
 		return materialSrv.stockDisponible(m)>=cantidad;
 	}
 

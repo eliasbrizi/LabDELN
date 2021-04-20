@@ -2,21 +2,29 @@ package com.brikton.labapps.mspedido.domain;
 
 
 public class DetallePedido {
+	
 	private Integer id;
 	private Material material;
-	private Integer cantidad;
+	private Double cantidad;
 
-	public Integer getId() {
+	public DetallePedido(Material material, int id, double cantidad) {
+		this.id = id;
+		this.material = material;
+		this.cantidad = cantidad;
+    }
+    public DetallePedido() {
+    }
+    public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Integer getCantidad() {
+	public Double getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(Integer cantidad) {
+	public void setCantidad(Double cantidad) {
 		this.cantidad = cantidad;
 	}
 	public Material getMaterial() {
@@ -26,6 +34,7 @@ public class DetallePedido {
 		this.material = material;
 	}
 	public Double getPrecio(){
-		return material.getPrecio() * cantidad;
+		//return material.getPrecio() * cantidad;
+		return cantidad;
 	}	
 }
