@@ -18,8 +18,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
-    
-    //TODO creo que hay que borrar todo esto
 
     private static Integer ID_GEN = 1;
 
