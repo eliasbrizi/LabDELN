@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
+import com.brikton.labapps.mspedido.MsPedidosTest;
 import com.brikton.labapps.mspedido.domain.DetallePedido;
 import com.brikton.labapps.mspedido.domain.Obra;
 import com.brikton.labapps.mspedido.domain.Pedido;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
@@ -26,20 +28,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 
 
-//@SpringBootTest( 
-//		classes = DamPedidosTest.class,
-//		webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest( 
+		classes = MsPedidosTest.class,
+		webEnvironment = WebEnvironment.RANDOM_PORT)
 class PedidoResourceTest {
 	
 	private RestTemplate restTemplate = new RestTemplate();
 
-    @Autowired
-    private TestRestTemplate testRestTemplate;
+    // @Autowired
+    // private TestRestTemplate testRestTemplate;
     
-// 	private RestTemplate restTemplate = new TestRestTemplate();
+	private TestRestTemplate testRestTemplate = new TestRestTemplate();
 	@LocalServerPort
 	String puerto;
 	  
@@ -74,7 +77,7 @@ class PedidoResourceTest {
 	}
 
 	@Test
-	@Disabled
+	//@Disabled
 	void deberiaRechazarPorFaltaDeItems() {
 		String server = urlServer+":"+puerto+"/"+apiPedido;
 		System.out.println("SERVER "+server);
@@ -93,7 +96,7 @@ class PedidoResourceTest {
 	}
 
 	@Test
-	@Disabled
+	//@Disabled
 	void deberiaAceptarConObraEItems() {
 		String server = urlServer+":"+puerto+"/"+apiPedido;
 		System.out.println("SERVER "+server);
@@ -108,7 +111,7 @@ class PedidoResourceTest {
 	}
 	
 	@Test
-	@Disabled
+	//@Disabled
 	void deberiaRechazarPorFaltaDeItems2() {
 		String server = urlServer+":"+puerto+"/"+apiPedido;
 		System.out.println("SERVER "+server);

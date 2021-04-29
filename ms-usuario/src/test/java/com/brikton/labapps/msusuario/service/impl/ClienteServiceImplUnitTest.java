@@ -49,16 +49,6 @@ public class ClienteServiceImplUnitTest {
 
     @BeforeEach
 	void setUp() throws Exception {
-		// unPedido = new Pedido();
-		// Obra obra = new Obra();
-		// DetallePedido d1 = new DetallePedido(new Material(),5,40.0);
-		// DetallePedido d2 = new DetallePedido(new Material(),10,80.0);
-		// DetallePedido d3 = new DetallePedido(new Material(),2,450.0);
-		// unPedido.setDetalle(new ArrayList<DetallePedido>());
-		// unPedido.getDetalle().add(d1);
-		// unPedido.getDetalle().add(d2);
-		// unPedido.getDetalle().add(d3);
-		// unPedido.setObra(obra);
         usuario = new Usuario(1, "user", "password", new TipoUsuario("CLIENTE"));
         cliente = new Cliente(1, "razonSocial", null, null, null, null, usuario);
         cliente.setCuit("20245461568");

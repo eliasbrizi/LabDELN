@@ -16,6 +16,9 @@ public class Cliente {
     private Usuario user;
     private ArrayList<Obra> obras;
     
+    public Cliente(){
+        
+    }
     public Cliente(Integer id, String razonSocial, String cuit, String mail, Double maxCuentaCorriente,
             Boolean habilitadoOnline, Usuario user) {
         this.id = id;

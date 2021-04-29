@@ -1,5 +1,8 @@
 package com.brikton.labapps.mspedido.domain;
 
-public class Obra {
-    
+import java.io.Serializable;
+
+public class Obra implements Serializable {
+
 }
+    

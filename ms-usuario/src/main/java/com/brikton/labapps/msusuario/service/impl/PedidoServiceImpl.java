@@ -2,6 +2,9 @@ package com.brikton.labapps.msusuario.service.impl;
 
 import com.brikton.labapps.msusuario.service.PedidoService;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class PedidoServiceImpl implements PedidoService {
 
     @Override
