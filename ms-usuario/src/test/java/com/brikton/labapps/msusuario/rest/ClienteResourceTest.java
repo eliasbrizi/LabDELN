@@ -58,11 +58,6 @@ public class ClienteResourceTest {
 	void tearDown() throws Exception {
 	}
 	
-	@Test
-	void hacerAlgo() {
-		assertTrue(true);
-	}
-	
     @Test
     void crearCliente(){
         String server = urlServer+":"+puerto+"/"+apiCliente;
