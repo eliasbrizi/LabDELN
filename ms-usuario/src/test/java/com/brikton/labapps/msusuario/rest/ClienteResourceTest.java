@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.brikton.labapps.msusuario.MsUsuarioTest;
 import com.brikton.labapps.msusuario.domain.Cliente;
-import com.brikton.labapps.msusuario.service.PedidoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,10 +12,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -85,5 +82,27 @@ public class ClienteResourceTest {
         }
 
     }
+
+	@Test
+	void actualizarCliente(){
+		String server = urlServer+":"+puerto+"/"+apiCliente;
+		System.out.println("SERVER "+server);
+		Cliente unCliente = new Cliente(0, "Pedro", "04123654", "unmail@mail.com", 2000.0, null, null);
+		HttpEntity<Cliente> requestCliente = new HttpEntity<>(unCliente);
+		ResponseEntity<String> respuesta = restTemplate.exchange(server, HttpMethod.POST,requestCliente , String.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			unCliente = objectMapper.readValue(respuesta.getBody(), Cliente.class);
+			unCliente.setMail("otromail@mail.com");
+			requestCliente = new HttpEntity<>(unCliente);
+			server = urlServer+":"+puerto+"/"+apiCliente+"/1";
+			respuesta = restTemplate.exchange(server, HttpMethod.PUT,requestCliente , String.class);
+			Cliente rta = objectMapper.readValue(respuesta.getBody(), Cliente.class);
+			assertTrue(rta.getMail().equals("otromail@mail.com"));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
