@@ -1,14 +1,16 @@
 package com.brikton.labapps.msproductos.domain;
 
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Provision {
 
 	private Integer id;
-	private Instant fechaProvision;
+	private LocalDate fechaProvision;
 	private List<DetalleProvision> detalle;
+	
+	public Provision(){}
 	
 	public Integer getId() {
 		return id;
@@ -16,10 +18,10 @@ public class Provision {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Instant getFechaProvision() {
+	public LocalDate getFechaProvision() {
 		return fechaProvision;
 	}
-	public void setFechaProvision(Instant fechaProvision) {
+	public void setFechaProvision(LocalDate fechaProvision) {
 		this.fechaProvision = fechaProvision;
 	}
 	public List<DetalleProvision> getDetalle() {

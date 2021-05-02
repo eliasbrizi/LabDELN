@@ -2,9 +2,12 @@ package com.brikton.labapps.msproductos.domain;
 
 
 public class DetallePedido {
+	
 	private Integer id;
 	private Material material;
 	private Integer cantidad;
+
+	public DetallePedido(){}
 
 	public Integer getId() {
 		return id;

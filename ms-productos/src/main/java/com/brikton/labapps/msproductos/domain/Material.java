@@ -9,6 +9,8 @@ public class Material {
 	private Integer stockActual;
 	private Integer stockMinimo;
 	
+	public Material(){}
+	
 	public Integer getId() {
 		return id;
 	}

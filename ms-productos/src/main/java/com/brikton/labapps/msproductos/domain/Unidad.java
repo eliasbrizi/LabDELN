@@ -5,6 +5,9 @@ public class Unidad {
 
 	private Integer id;
 	private String descripcion;
+
+	public Unidad(){}
+
 	public Integer getId() {
 		return id;
 	}

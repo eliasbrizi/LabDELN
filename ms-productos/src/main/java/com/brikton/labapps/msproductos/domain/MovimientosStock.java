@@ -12,6 +12,8 @@ public class MovimientosStock {
 	private Integer cantidadSalida;
 	private Instant fecha;
 	
+	public MovimientosStock(){}
+	
 	public Integer getId() {
 		return id;
 	}

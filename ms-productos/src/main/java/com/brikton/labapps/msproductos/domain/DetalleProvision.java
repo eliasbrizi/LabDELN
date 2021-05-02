@@ -1,10 +1,14 @@
 package com.brikton.labapps.msproductos.domain;
 
 public class DetalleProvision {
+	
 	private Integer id;
 	private Material material;
 	private Integer cantidad;
+	private Provision provision;
 
+	public DetalleProvision(){}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -23,6 +27,14 @@ public class DetalleProvision {
 	}
 	public void setMaterial(Material material) {
 		this.material = material;
+	}
+
+	public Provision getProvision() {
+		return provision;
+	}
+
+	public void setProvision(Provision provision) {
+		this.provision = provision;
 	}
 	
 	
